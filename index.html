@@ -321,8 +321,8 @@ img{max-width:100%;display:block}
 #stat-scroll-sticky{position:sticky;top:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 #stat-head,#stat-quote-wrap{max-width:1080px;margin:0 auto;width:100%;box-sizing:border-box}
 @media(max-width:768px){
-  #stat-scroll-outer{height:380vh;margin-left:-1.25rem;margin-right:-1.25rem}
-  #stat-scroll-sticky{height:100vh;gap:1.5rem;padding:0 0 0.5rem}
+  #stat-scroll-outer{height:190vh;margin-left:-1.25rem;margin-right:-1.25rem}
+  #stat-scroll-sticky{height:auto;justify-content:flex-start;gap:1.5rem;padding:0}
   #stat-head{padding:0 1.25rem}
   #stat-head .sh{font-size:1.7rem;line-height:1.15}
   #stat-head .sp{font-size:0.85rem;line-height:1.55;margin-top:0.5rem}
@@ -1997,6 +1997,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   var outer=document.getElementById('stat-scroll-outer');
   if(!outer)return;
   var grid=document.getElementById('stat-grid');
+  var sticky=document.getElementById('stat-scroll-sticky');
   var t1=document.getElementById('stat-t1');
   var t2=document.getElementById('stat-t2');
   var t3=document.getElementById('stat-t3');
@@ -2017,7 +2018,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
   function prog(){
     var rect=outer.getBoundingClientRect();
-    var scrollable=outer.offsetHeight-window.innerHeight;
+    var scrollable=outer.offsetHeight-sticky.offsetHeight;
     if(scrollable<=0)return 0;
     return clamp(-rect.top/scrollable,0,1);
   }
