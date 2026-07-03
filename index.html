@@ -321,12 +321,12 @@ img{max-width:100%;display:block}
 #stat-scroll-sticky{position:sticky;top:0;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 #stat-head,#stat-quote-wrap{max-width:1080px;margin:0 auto;width:100%;box-sizing:border-box}
 @media(max-width:768px){
-  #stat-scroll-outer{height:190vh;height:190svh;margin-left:-1.25rem;margin-right:-1.25rem}
-  #stat-scroll-sticky{height:auto;justify-content:flex-start;gap:1.5rem;padding:0}
+  #stat-scroll-outer{height:auto;margin-left:-1.25rem;margin-right:-1.25rem}
+  #stat-scroll-sticky{position:sticky;top:0;height:auto;justify-content:flex-start;gap:1.5rem;padding:0;overflow:hidden}
   #stat-head{padding:0 1.25rem}
   #stat-head .sh{font-size:1.7rem;line-height:1.15}
   #stat-head .sp{font-size:0.85rem;line-height:1.55;margin-top:0.5rem}
-  #stat-grid{display:flex!important;flex-wrap:nowrap!important;grid-template-columns:none!important;gap:1.25rem!important;padding:0 1.25rem!important;margin-top:0!important;will-change:transform}
+  #stat-grid{display:flex!important;flex-wrap:nowrap!important;grid-template-columns:none!important;gap:1.25rem!important;padding:0 1.25rem!important;margin-top:0!important;overflow:visible;will-change:transform}
   #stat-grid .stat-t{flex:0 0 calc(100vw - 2.5rem)!important;min-width:calc(100vw - 2.5rem)!important;box-sizing:border-box;padding:1.75rem}
   #stat-quote-wrap{padding:0 1.25rem}
 }
@@ -2003,6 +2003,8 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   var t3=document.getElementById('stat-t3');
   var quote=document.getElementById('stat-quote');
   var mob=window.innerWidth<769;
+  var MOB_RUNWAY_PX=800;
+  var mobStickyTop=0;
   var t1StartScale=2.5;
   var t2StartX=0,t3PeekX=0,t3FarX=0;
 
@@ -2020,7 +2022,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     var rect=outer.getBoundingClientRect();
     var scrollable=outer.offsetHeight-sticky.offsetHeight;
     if(scrollable<=0)return 0;
-    return clamp(-rect.top/scrollable,0,1);
+    return clamp((mobStickyTop-rect.top)/scrollable,0,1);
   }
 
   // Pre-pin progress: tracks the natural (unpinned) scroll-in, over a runway
@@ -2035,6 +2037,15 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
 
   function init(){
+    if(mob){
+      mobStickyTop=Math.max(0,(window.innerHeight-sticky.offsetHeight)/2);
+      sticky.style.top=mobStickyTop+'px';
+      outer.style.height=(sticky.offsetHeight+MOB_RUNWAY_PX)+'px';
+    } else {
+      mobStickyTop=0;
+      sticky.style.top='';
+      outer.style.height='';
+    }
     if(!mob){
       // Tile 1 starts scaled to roughly viewport width (anchored left) so the
       // entrance reads as full-bleed before settling into its grid slot
@@ -2068,9 +2079,8 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   function tick(){
     var p=prog();
     if(mob){
-      var tw=t1.offsetWidth,gap=20,step=tw+gap;
+      var tw=t1.offsetWidth,gp=parseFloat(getComputedStyle(grid).columnGap)||20,step=tw+gp;
       grid.style.transform='translateX('+(-stepEase(p,2)*step)+'px)';
-      // Quote: blurs and fades in across the back half of the pinned scroll
       var qpm=ease(clamp((p-0.35)/0.55,0,1));
       quote.style.opacity=String(qpm);
       quote.style.filter='blur('+lerp(8,0,qpm)+'px)';
