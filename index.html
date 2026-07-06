@@ -1951,7 +1951,7 @@ function collapseDesktopCard(card, body, btn, grid, overlay) {
 }
 
 
-function go(page) {
+function go(page, skipPushState) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   window.scrollTo({top: 0, behavior: 'instant'});
@@ -1964,22 +1964,22 @@ function go(page) {
   document.getElementById('mobToggle').classList.remove('open');
   document.getElementById('navLinks').classList.remove('open');
   document.getElementById('navScrim').classList.remove('open');
-  // Update hash
-  history.pushState(null, '', '#' + page);
+  // Update URL with clean path (only for user clicks, not browser back/forward)
+  if (!skipPushState) history.pushState(null, '', '/' + page);
   // Re-run reveal observer for new page
   document.querySelectorAll('.reveal:not(.vis)').forEach(el => obs.observe(el));
   // Re-measure fit-text now this page is visible
   requestAnimationFrame(window.fitText);
 }
 
-// Handle hash on load
+// Handle page on load and browser back/forward
 window.addEventListener('DOMContentLoaded', () => {
-  const hash = location.hash.replace('#','') || 'home';
-  if (['home','services','about','contact'].includes(hash)) go(hash);
+  const path = location.pathname.split('/').filter(Boolean)[0] || 'home';
+  if (['home','services','about','contact'].includes(path)) go(path);
 });
 window.addEventListener('popstate', () => {
-  const hash = location.hash.replace('#','') || 'home';
-  if (['home','services','about','contact'].includes(hash)) go(hash);
+  const path = location.pathname.split('/').filter(Boolean)[0] || 'home';
+  if (['home','services','about','contact'].includes(path)) go(path, true);
 });
 
 // Scroll nav effect
