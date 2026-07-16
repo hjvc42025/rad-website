@@ -86,7 +86,7 @@ img{max-width:100%;display:block}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;transition:padding 0.3s}
 .nav::before{content:'';position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
 .nav.scrolled{padding:0.65rem 2.5rem;box-shadow:0 1px 0 rgba(0,0,0,0.04)}
-.nav-logo{height:26px;cursor:pointer;position:relative;z-index:2}
+.nav-logo{height:26px;display:block;cursor:pointer;position:relative;z-index:2}
 .nav-links{display:flex;gap:2rem;align-items:center}
 .nav-links a{font-size:0.84rem;font-weight:400;color:var(--gd);transition:color 0.2s;cursor:pointer}
 .nav-links a:hover,.nav-links a.on{color:var(--bk)}
@@ -616,7 +616,7 @@ h1, h2, h3, h4, .sh { text-wrap: balance; }
   .nav-links { background: rgba(24,24,26,0.98); }
   .nav-links a { color: #f0ede8; }
   /* Standard (dark) logo → invert to white wordmark for dark bg */
-  .nav > img { filter: brightness(0) invert(1); }
+  .nav-logo { filter: brightness(0) invert(1); }
 
   /* Buttons */
   .btn-s { border-color: rgba(255,255,255,0.2); color: #f0ede8; }
