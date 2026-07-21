@@ -1354,6 +1354,17 @@ p.label { color: var(--r) !important; }
   border:1.5px solid var(--r); border-radius:980px;
   transition:background 0.2s, color 0.2s; }
 .work-social:hover { background:var(--r); color:#fff; }
+
+/* ── RED EYEBROW LABEL SIZE LOCK ────────────────────────────────────
+   The red eyebrow label (.label) must stay at 0.72rem so it reads as a
+   kicker above the white section heading, not as body copy. On some
+   builds it was rendering at ~1rem — measured 38px ink height vs the
+   correct 26px at a 13.7px root — because the .label size declaration
+   was being lost or beaten later in the cascade. Pinned last in the
+   stylesheet with !important so no later rule (or a stray extra class
+   such as .sp landing on the same element) can win on source order.
+   Excludes the big-format variant used in the package cards. */
+.label:not(.pkg-lbl-big) { font-size: 0.72rem !important; }
 </style>
 </head>
 <body>
