@@ -423,6 +423,51 @@ img{max-width:100%;display:block}
   #stat-quote-wrap{padding:0 2.5rem}
 }
 
+/* ══ PROOF GRID (real work showcase) ════════════════
+   Desktop: static asymmetric grid, no scroll-jack — just a reveal.
+   Mobile: horizontal drag-on-scroll, same edge-clip pin mechanic as
+   the stat-scroll section, generalised to 7 tiles and simplified
+   (no per-tile entrance choreography — the drag itself is the effect). */
+#proof-scroll-outer{position:relative}
+#proof-scroll-sticky{display:flex;flex-direction:column}
+#proof-head{max-width:1080px;margin:0 auto;width:100%;box-sizing:border-box;padding:0 2.5rem}
+#proof-head .sp{max-width:none}
+@media(min-width:769px){
+  #proof-head .sp{white-space:nowrap}
+}
+.proof-g{display:grid;align-items:center;grid-template-columns:1fr 1.2fr 1fr 1.2fr 1fr 1fr 0.9fr;gap:1.5rem;max-width:1200px;margin:3rem auto 0;padding:0 2.5rem}
+.proof-t{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#111;display:block}
+.proof-t img{width:100%;height:100%;object-fit:cover;display:block}
+.proof-t .proof-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,0.65) 100%)}
+.proof-t .proof-play svg{width:2.5rem;height:2.5rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4))}
+@media(max-width:768px){
+  #proof-scroll-outer{margin-left:-1.25rem;margin-right:-1.25rem}
+  #proof-scroll-sticky{position:sticky;top:0;height:auto;overflow:hidden;will-change:transform}
+  #proof-head{padding:0 1.25rem}
+  #proof-head .sh{font-size:1.7rem;line-height:1.15}
+  #proof-head .sp{font-size:0.85rem;line-height:1.55;margin-top:0.5rem}
+  .proof-g{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;grid-template-columns:none!important;gap:1rem!important;padding:0!important;margin-top:1.75rem!important;max-width:none}
+  /* Gutter lives on the first/last tile's margin, not container padding —
+     padding on an overflowing, transform-driven flex row was measuring
+     unreliably against grid.scrollWidth and showed up as a large phantom
+     gap before tile 1. Margin on the edge tiles is unambiguous. */
+  .proof-g .proof-t:first-child{margin-left:1.25rem!important}
+  .proof-g .proof-t:last-child{margin-right:1.25rem!important}
+  /* Aspect ratio stays 9:16 (inherited from .proof-t, untouched here) —
+     only the width varies, ~10% either side of a 38vw base, so tiles
+     read as slightly staggered rather than a different shape. */
+  .proof-g .proof-t{min-width:0!important;flex:0 0 38vw!important}
+  .proof-g .proof-t:nth-child(2){flex:0 0 42vw!important}
+  .proof-g .proof-t:nth-child(4){flex:0 0 42vw!important}
+  .proof-g .proof-t:nth-child(3),
+  .proof-g .proof-t:nth-child(7){flex:0 0 34vw!important}
+  .proof-g .proof-t:nth-child(6){flex:0 0 36vw!important}
+}
+@media(max-width:900px) and (min-width:769px){
+  .proof-g{grid-template-columns:repeat(4,1fr)}
+  .proof-t{aspect-ratio:3/4}
+}
+
 /* ══ FEATURE GRID (Apple callout tiles) ════════════ */
 .feat-g { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
 @media(min-width:860px){ .feat-g{grid-template-columns:repeat(3,1fr)} }
@@ -1302,7 +1347,50 @@ p.label { color: var(--r) !important; }
 <div class="hero-actions reveal"><a class="btn btn-p" href="/contact">Book a free call</a><a class="btn btn-s" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">See our work</a></div>
 </div></div>
 
-<section class="sec-wide" style="padding-top:1.5rem;padding-bottom:5rem">
+<section class="sec-wide" style="padding-top:5.5rem;padding-bottom:8rem">
+<div id="proof-scroll-outer">
+<div id="proof-scroll-sticky">
+<div id="proof-head">
+<p class="label reveal">The proof</p>
+<h2 class="sh reveal">You wouldn't hire an electrician who's never wired a house.</h2>
+<p class="sp reveal">So why hire a social media specialist who isn't getting their clients seen?</p>
+</div>
+<div class="proof-g" id="proof-grid">
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DMdfEgCT2J-/" target="_blank" rel="noopener">
+<img src="proof-1.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DG6VyDTTPof/" target="_blank" rel="noopener">
+<img src="proof-2.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DLO7cz6vDuJ/" target="_blank" rel="noopener">
+<img src="proof-3.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DTJ7SFnEYcR/" target="_blank" rel="noopener">
+<img src="proof-4.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DPS8wW8lH6Q/" target="_blank" rel="noopener">
+<img src="proof-5.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DVc9obejPoD/" target="_blank" rel="noopener">
+<img src="proof-6.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+<a class="proof-t reveal" href="https://www.instagram.com/reel/DK85Xjivj9a/" target="_blank" rel="noopener">
+<img src="proof-7.jpg" loading="lazy" alt="">
+<div class="proof-play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+</a>
+</div>
+<p style="text-align:center;max-width:1080px;margin:5rem auto 0;font-size:0.85rem;color:var(--gd)">Here are 7 pieces of "reel" client work we prepared earlier</p>
+</div>
+</div>
+</section>
+
+<section class="sec-wide" style="padding-top:3rem;padding-bottom:5rem">
 <div style="max-width:1080px;margin:0 auto">
 <p class="label reveal reveal-collapse" style="text-align:center">What we do</p>
 <h2 class="sh reveal reveal-collapse" style="text-align:center;margin-bottom:0.5rem">Three ways to work with us.</h2>
@@ -1913,6 +2001,63 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   tick();
   window.addEventListener('scroll',tick,{passive:true});
   window.addEventListener('resize',function(){mob=window.innerWidth<769;init();tick();});
+})();
+
+// ── PROOF GRID HORIZONTAL DRAG (mobile only) ────────────
+// Same pin mechanic as stat-scroll: outer gets extra runway height,
+// sticky locks at top:0, vertical scroll through the runway drives
+// a horizontal translateX on the grid. No per-tile choreography —
+// deliberately simpler than stat-scroll since these tiles need to
+// stay legible and tappable the whole time, not fade/scale past.
+(function(){
+  var outer=document.getElementById('proof-scroll-outer');
+  if(!outer)return;
+  var sticky=document.getElementById('proof-scroll-sticky');
+  var grid=document.getElementById('proof-grid');
+  var mob=window.innerWidth<769;
+  var SPEED=1.3; // px of vertical scroll per px of horizontal travel — tune to taste
+  var scrollDistance=0;
+  var mobStickyTop=0;
+
+  function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;}
+  function clamp(v,a,b){return v<a?a:v>b?b:v;}
+
+  function prog(){
+    var rect=outer.getBoundingClientRect();
+    var scrollable=outer.offsetHeight-sticky.offsetHeight;
+    if(scrollable<=0)return 0;
+    return clamp((mobStickyTop-rect.top)/scrollable,0,1);
+  }
+
+  function init(){
+    mob=window.innerWidth<769;
+    if(!mob){
+      sticky.style.top='';
+      outer.style.height='';
+      grid.style.transform='';
+      return;
+    }
+    // Center the pinned content vertically in the viewport, same as
+    // stat-scroll, so the header doesn't sit jammed against the nav bar.
+    mobStickyTop=Math.max(0,(window.innerHeight-sticky.offsetHeight)/2);
+    sticky.style.top=mobStickyTop+'px';
+    // Distance = full content width minus the visible sticky viewport.
+    // Grid keeps its own left/right padding, so at p=1 the last tile's
+    // right edge lands flush with that padding — no dead space beyond it.
+    scrollDistance=Math.max(0,grid.scrollWidth-sticky.clientWidth);
+    outer.style.height=(sticky.offsetHeight+scrollDistance*SPEED)+'px';
+  }
+
+  function tick(){
+    if(!mob)return;
+    var p=ease(prog());
+    grid.style.transform='translateX('+(-p*scrollDistance)+'px)';
+  }
+
+  init();
+  tick();
+  window.addEventListener('scroll',tick,{passive:true});
+  window.addEventListener('resize',function(){init();tick();});
 })();
 
 </script>
