@@ -212,9 +212,14 @@ img{max-width:100%;display:block}
 .faq-q:hover{color:var(--r)}
 .faq-q .fi{font-size:1.2rem;font-weight:400;color:var(--r);transition:transform 0.3s}
 .faq-item.open .fi{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s}
-.faq-item.open .faq-a{max-height:300px}
-.faq-a p{font-size:0.86rem;color:var(--gd);line-height:1.7;padding-bottom:1.15rem}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.5s}
+.faq-item.open .faq-a{max-height:700px}
+.faq-a p{font-size:0.86rem;color:var(--gd);line-height:1.7;padding-bottom:1rem}
+.faq-a p:last-child{padding-bottom:1.15rem}
+.faq-a strong{color:var(--bk);font-weight:700}
+.faq-a ul{margin:0 0 1rem;padding-left:1.1rem}
+.faq-a li{font-size:0.86rem;color:var(--gd);line-height:1.6;margin-bottom:0.4rem}
+.faq-a li strong{color:var(--bk)}
 
 /* CTA + FAQ combined section. Grid areas (not flex). Desktop: the CTA
    tile's grid area spans both rows in column 2 ("header cta" / "faq cta"),
@@ -226,7 +231,7 @@ img{max-width:100%;display:block}
 .cta-faq-header{grid-area:header}
 .cta-faq-faq{grid-area:faq}
 .cta-faq-cta{grid-area:cta;text-align:center}
-.cta-faq-subhead{font-size:clamp(1.5rem,3vw,2.15rem)}
+.cta-faq-subhead{font-size:clamp(1.5rem,3vw,2.15rem) !important}
 .cta-tile{background:var(--bk);border-radius:20px;padding:2.5rem 2rem}
 .cta-tile p{color:var(--gy)}
 .cta-tile .btn-p{background:var(--r)}
@@ -349,6 +354,17 @@ img{max-width:100%;display:block}
 .pkg-head { padding: 2.5rem 2.5rem 1.75rem; flex: 1; }
 .pkg-lbl { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--r); margin-bottom: 0.9rem; display: block; }
 .pkg-card.pkg-dark .pkg-lbl { color: #ff7a7a; }
+/* Big/thin variant — same slot the giant bold price used to occupy, now
+   holding the "Full service" / "Self-shoot" copy at that size but light
+   weight instead. !important guards against the later uniform-type-scale
+   block re-declaring .pkg-lbl's font-size and winning on source order. */
+.pkg-lbl-big { font-size: clamp(2.2rem, 3.5vw, 3rem) !important; font-weight: 300 !important; text-transform: none !important; letter-spacing: -0.01em !important; line-height: 1.05 !important; margin-bottom: 1.1rem !important; }
+/* Price flag — mirrors services page's .svc-price-flag exactly: small,
+   semibold, red price figure with a thin grey note inline after it. */
+.pkg-price-flag { display: inline-block; font-size: 0.78rem; font-weight: 600; color: var(--r); letter-spacing: 0.01em; margin-bottom: 0.6rem; }
+.pkg-price-flag span { font-weight: 300; color: var(--gd); }
+.pkg-card.pkg-dark .pkg-price-flag { color: #ff7a7a; }
+.pkg-card.pkg-dark .pkg-price-flag span { color: var(--gy); }
 .pkg-nm { font-size: clamp(1.4rem, 2.2vw, 1.85rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
 .pkg-price { font-size: clamp(2.2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -0.045em; line-height: 1; }
 .pkg-price-note { font-size: 0.8rem; font-weight: 400; color: var(--gd); margin-bottom: 1.1rem; display: block; margin-top: 0.2rem; }
@@ -440,6 +456,21 @@ img{max-width:100%;display:block}
 .proof-t img{width:100%;height:100%;object-fit:cover;display:block}
 .proof-t .proof-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,0.65) 100%)}
 .proof-t .proof-play svg{width:2.5rem;height:2.5rem;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4))}
+@media(min-width:769px){
+  /* Hover only makes sense with a real pointer, hence min-width scoping
+     rather than a hover media feature — keeps this out of the mobile
+     drag-scroll tiles entirely. Tile lifts + gets a shadow; the image
+     zooms independently inside the clipped border-radius so the tile's
+     own footprint in the grid never changes (transforms don't reflow). */
+  .proof-t{transition:transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease}
+  .proof-t img{transition:transform 0.5s cubic-bezier(.2,.8,.2,1)}
+  .proof-t .proof-play{transition:background 0.35s ease}
+  .proof-t .proof-play svg{transition:transform 0.35s cubic-bezier(.2,.8,.2,1)}
+  .proof-t:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 20px 40px rgba(0,0,0,0.35);z-index:2}
+  .proof-t:hover img{transform:scale(1.08)}
+  .proof-t:hover .proof-play{background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.7) 100%)}
+  .proof-t:hover .proof-play svg{transform:scale(1.12)}
+}
 @media(max-width:768px){
   #proof-scroll-outer{margin-left:-1.25rem;margin-right:-1.25rem}
   #proof-scroll-sticky{position:sticky;top:0;height:auto;overflow:hidden;will-change:transform}
@@ -759,7 +790,8 @@ h1, h2, h3, h4, .sh { text-wrap: balance; }
   /* FAQ */
   .faq-item { border-color: rgba(255,255,255,0.08); }
   .faq-q    { color: #f0ede8; }
-  .faq-a p  { color: #9a9a9a; }
+  .faq-a p, .faq-a li { color: #9a9a9a; }
+  .faq-a strong, .faq-a li strong { color: #f0ede8; }
 
   /* Footer stays dark — already fine */
   .ftm-title { color: #555; }
@@ -861,6 +893,8 @@ h1, h2, h3, h4, .sh { text-wrap: balance; }
   .pkg-card.pkg-dark .pkg-nm    { color: #f0ede8 !important; }
   .pkg-card.pkg-dark .pkg-price { color: #f0ede8 !important; }
   .pkg-card.pkg-dark .pkg-price-note { color: #9a9a9a !important; }
+  .pkg-card.pkg-dark .pkg-price-flag { color: #ff8a8a !important; }
+  .pkg-card.pkg-dark .pkg-price-flag span { color: #b8b8b8 !important; }
   .pkg-card.pkg-dark .pkg-tag   { color: #9a9a9a !important; }
   .pkg-card.pkg-dark .pkg-commit { color: #666 !important; }
   .pkg-card.pkg-dark .expand-toggle {
@@ -1400,10 +1434,8 @@ p.label { color: var(--r) !important; }
 <div class="pkg-card pkg-dark reveal">
 <span class="pkg-badge reveal">Most popular</span>
 <div class="pkg-head">
-<span class="pkg-lbl">Full service</span>
+<span class="pkg-price-flag">$1,899 <span>ex. GST / per month</span></span>
 <div class="pkg-nm fit-text">Social media <span style="font-weight:300">(Everything)</span></div>
-<div class="pkg-price fit-text">$1,899<span class="pkg-ex-gst">ex. GST</span></div>
-<span class="pkg-price-note">per month</span>
 <p class="pkg-tag">We handle everything. Monthly shoot day, editing, captions, scheduling and reporting across Instagram, Facebook and TikTok. You set aside half a day a month.</p>
 <button class="expand-toggle" onclick="toggleExpand(this)">See what's included <span class="tog-i"></span></button>
 </div>
@@ -1427,10 +1459,8 @@ p.label { color: var(--r) !important; }
 
 <div class="pkg-card pkg-soft reveal">
 <div class="pkg-head">
-<span class="pkg-lbl">Self-shoot</span>
+<span class="pkg-price-flag">$959 <span>ex. GST / per month</span></span>
 <div class="pkg-nm fit-text">Social media <span style="font-weight:300">(You Shoot)</span></div>
-<div class="pkg-price fit-text">$959<span class="pkg-ex-gst">ex. GST</span></div>
-<span class="pkg-price-note">per month</span>
 <p class="pkg-tag">You do the filming. We give you a detailed shoot guide with word-for-word hooks and camera direction, then edit, caption, schedule and report.</p>
 <button class="expand-toggle" onclick="toggleExpand(this)">See what's included <span class="tog-i"></span></button>
 </div>
@@ -1454,10 +1484,8 @@ p.label { color: var(--r) !important; }
 
 <div class="pkg-card pkg-soft reveal">
 <div class="pkg-head">
-<span class="pkg-lbl">One-off</span>
+<span class="pkg-price-flag">$799 <span>ex. GST, no ongoing commitment</span></span>
 <div class="pkg-nm fit-text">Reels one-off shoot</div>
-<div class="pkg-price fit-text">$799<span class="pkg-ex-gst">ex. GST</span></div>
-<span class="pkg-price-note">No ongoing commitment.</span>
 <p class="pkg-tag">10 edited Reels from a single shoot day. Good for testing the water or topping up your content bank.</p>
 <button class="expand-toggle" onclick="toggleExpand(this)">See what's included <span class="tog-i"></span></button>
 </div>
@@ -1575,16 +1603,16 @@ p.label { color: var(--r) !important; }
 </div>
 <div class="cta-faq-faq">
 <div class="faq-list reveal">
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How much does it cost? <span class="fi">+</span></div><div class="faq-a"><p>We have four services. Social media (Everything), where we handle the shoot, is from $1,899 +GST per month. Social media (You Shoot), where you film and we take care of the rest, is from $959 +GST per month. The Reels one-off shoot is $799 +GST with no ongoing commitment. Photography (half or full day) starts from $399 +GST. Every client gets a tailored quote after the initial call.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What platforms do you manage? <span class="fi">+</span></div><div class="faq-a"><p>Both retainer packages cover Instagram, Facebook and TikTok, with up to four posts per week. We don't currently offer LinkedIn management. The LinkedIn algorithm operates very differently to other platforms and requires a distinct content strategy to be effective. Including it as a bolt-on to these packages wouldn't do it justice.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long until we see results? <span class="fi">+</span></div><div class="faq-a"><p>There's usually a teething period early on while we fine-tune your specific strategy and brand. During this time you may see outliers in both directions, some content performing unexpectedly well and some underperforming. That's normal and expected. By the two to three month mark we'll typically have enough data to know exactly what's working for your audience and have things well dialled in from there.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you work outside Tauranga? <span class="fi">+</span></div><div class="faq-a"><p>Yes. Social media management is done remotely, so rad works with businesses across New Zealand and internationally. For photo and video shoots we're based in Tauranga and travel within the Bay of Plenty and beyond.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the minimum commitment? <span class="fi">+</span></div><div class="faq-a"><p>Both retainer packages have a four-month minimum. This isn't arbitrary. The first months are where we dial in your content strategy, learn your brand, and edit the first batches of content to a standard we're confident in. Cutting that short doesn't give the process a fair chance. If you need to exit during the minimum period, early break fees and a non-disclosure agreement will apply. After the minimum, you can move to month-by-month, quarterly, bi-annual or annual. The Reels one-off shoot has no ongoing commitment.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How much does it cost? <span class="fi">+</span></div><div class="faq-a"><p>We have four services.</p><ul><li><strong>Social media (Everything)</strong>, where we handle the shoot, is from <strong>$1,899 +GST</strong> per month.</li><li><strong>Social media (You Shoot)</strong>, where you film and we take care of the rest, is from <strong>$959 +GST</strong> per month.</li><li>The <strong>Reels one-off shoot</strong> is <strong>$799 +GST</strong> with no ongoing commitment.</li><li><strong>Photography</strong> (half or full day) starts from <strong>$399 +GST</strong>.</li></ul><p>Every client gets a tailored quote after the initial call.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What platforms do you manage? <span class="fi">+</span></div><div class="faq-a"><p>Both retainer packages cover <strong>Instagram, Facebook and TikTok</strong>, with up to four posts per week.</p><p>We don't currently offer LinkedIn management. The LinkedIn algorithm operates very differently to other platforms and requires a distinct content strategy to be effective. Including it as a bolt-on to these packages wouldn't do it justice.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long until we see results? <span class="fi">+</span></div><div class="faq-a"><p>There's usually a teething period early on while we fine-tune your specific strategy and brand. During this time you may see outliers in both directions, some content performing unexpectedly well and some underperforming. That's normal and expected.</p><p>By the <strong>two to three month mark</strong> we'll typically have enough data to know exactly what's working for your audience and have things well dialled in from there.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you work outside Tauranga? <span class="fi">+</span></div><div class="faq-a"><p>Yes. Social media management is done <strong>remotely</strong>, so rad works with businesses across New Zealand and internationally. For photo and video shoots we're based in Tauranga and travel within the <strong>Bay of Plenty and beyond</strong>.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the minimum commitment? <span class="fi">+</span></div><div class="faq-a"><p>Both retainer packages have a <strong>four-month minimum</strong>. This isn't arbitrary. The first months are where we dial in your content strategy, learn your brand, and edit the first batches of content to a standard we're confident in. Cutting that short doesn't give the process a fair chance.</p><p>If you need to exit during the minimum period, early break fees and a non-disclosure agreement will apply.</p><p>After the minimum, you can move to month-by-month, quarterly, bi-annual or annual. The Reels one-off shoot has <strong>no ongoing commitment</strong>.</p></div></div>
 
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What’s in the performance report? <span class="fi">+</span></div><div class="faq-a"><p>Each month we send a performance report built around rad’s own reporting framework. Unlike the dashboards you’d get from a paid ads specialist, which are built around spend metrics like cost-per-click and return on ad spend, our report focuses on the metrics that tell you whether your content is actually working organically. That includes reach and impressions (how many people your content is getting in front of), engagement rate (the percentage of viewers who interact with a post), video completion rate and average watch time (which tell us how well your content is holding attention), follower growth over the period, profile visits and link-in-bio clicks, and a breakdown of which content formats and topics are outperforming others. The goal is to tell you what’s working and why, so we can build more of what your audience responds to and cut what it doesn’t. Most paid ads reports tell you what your money is doing. Ours tells you what your content is doing.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do we approve content before it goes live? <span class="fi">+</span></div><div class="faq-a"><p>Before we start posting, we'll send through an example batch so you can see the style and format we're working with. Once a format is approved, we post on the basis that you're happy with that style going forward. If you'd prefer to approve every individual piece of content before it goes live, we can arrange a system for that. Just let us know upfront and we'll build it into the workflow.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you run paid advertising or boost posts? <span class="fi">+</span></div><div class="faq-a"><p>Our focus is organic content. We advise waiting until there's a solid dataset of content to sample and judge performance from before moving into a paid ads campaign. Paid spend on content that hasn't proven itself organically tends to underperform and cost more. If you already work with a Meta or TikTok ads specialist, we'd love to collaborate. We can create a run of videos fine-tuned specifically for paid application to feed into their campaigns.</p></div></div>
-<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What if we are not sure social media is right for our business? <span class="fi">+</span></div><div class="faq-a"><p>That's what the free call is for. We'll look at your business and tell you whether organic content marketing is the right move, and if it is, what formula we'd build around. If it's not the right fit, we'll say so.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What’s in the performance report? <span class="fi">+</span></div><div class="faq-a"><p>Each month we send a performance report built around rad’s own reporting framework. Unlike the dashboards you’d get from a paid ads specialist, which are built around spend metrics like cost-per-click and return on ad spend, our report focuses on the metrics that tell you whether your content is actually working organically.</p><ul><li><strong>Reach and impressions</strong> — how many people your content is getting in front of</li><li><strong>Engagement rate</strong> — the percentage of viewers who interact with a post</li><li><strong>Video completion rate and average watch time</strong> — how well your content is holding attention</li><li><strong>Follower growth</strong> over the period</li><li><strong>Profile visits and link-in-bio clicks</strong></li><li>A breakdown of which <strong>content formats and topics</strong> are outperforming others</li></ul><p>The goal is to tell you what's working and why, so we can build more of what your audience responds to and cut what it doesn't.</p><p><strong>Most paid ads reports tell you what your money is doing. Ours tells you what your content is doing.</strong></p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do we approve content before it goes live? <span class="fi">+</span></div><div class="faq-a"><p>Before we start posting, we'll send through an <strong>example batch</strong> so you can see the style and format we're working with. Once a format is approved, we post on the basis that you're happy with that style going forward.</p><p>If you'd prefer to <strong>approve every individual piece</strong> of content before it goes live, we can arrange a system for that. Just let us know upfront and we'll build it into the workflow.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you run paid advertising or boost posts? <span class="fi">+</span></div><div class="faq-a"><p>Our focus is <strong>organic content</strong>. We advise waiting until there's a solid dataset of content to sample and judge performance from before moving into a paid ads campaign. Paid spend on content that hasn't proven itself organically tends to underperform and cost more.</p><p>If you already work with a Meta or TikTok ads specialist, we'd love to collaborate. We can create a run of videos fine-tuned specifically for paid application to feed into their campaigns.</p></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What if we are not sure social media is right for our business? <span class="fi">+</span></div><div class="faq-a"><p>That's what the <strong>free call</strong> is for. We'll look at your business and tell you whether organic content marketing is the right move, and if it is, what formula we'd build around. If it's not the right fit, we'll say so.</p></div></div>
 </div></div>
 </div>
 </section>
