@@ -74,7 +74,7 @@ img{max-width:100%;display:block}
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;transition:padding 0.3s}
 .nav::before{content:'';position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
 .nav.scrolled{padding:0.65rem 2.5rem;box-shadow:0 1px 0 rgba(0,0,0,0.04)}
-.nav-logo{height:26px;display:block;cursor:pointer;position:relative;z-index:2}
+.nav-logo{height:26px;display:block;cursor:pointer;position:relative;z-index:2;margin-right:auto;flex-shrink:0}
 .nav-links{display:flex;gap:2rem;align-items:center}
 .nav-links a{font-size:0.84rem;font-weight:400;color:var(--gd);transition:color 0.2s;cursor:pointer}
 .nav-links a:hover,.nav-links a.on{color:var(--bk)}
@@ -1256,6 +1256,14 @@ p.label { color: var(--r) !important; }
   border:1.5px solid var(--r); border-radius:980px;
   transition:background 0.2s, color 0.2s; }
 .work-social:hover { background:var(--r); color:#fff; }
+
+/* ── RED EYEBROW LABEL SIZE LOCK ────────────────────────────────────
+   The red eyebrow label (.label) must stay at 0.72rem so it reads as a
+   kicker above the white section heading, not as body copy. It was
+   rendering at ~1rem on some pages (measured 38px ink height vs the
+   correct 26px at a 13.7px root). Pinned last in the stylesheet with
+   !important so no later rule can win on source order. */
+.label:not(.pkg-lbl-big) { font-size: 0.72rem !important; }
 </style>
 </head>
 <body>
