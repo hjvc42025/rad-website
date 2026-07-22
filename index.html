@@ -1382,39 +1382,22 @@ p.label { color: var(--r) !important; }
    fill in dark mode. Same convention as .pkg-card.pkg-dark: fixed dark
    hex plus an explicit dark-scheme override below.
 
-   Layout: heading block sits ABOVE the body, full width. Body then
-   splits into two columns on desktop purely for line length; at full
-   tile width a single column would run past 110 characters. */
+   Body-only tile: no label, no heading. Splits into two columns on
+   desktop purely for line length; at full tile width a single column
+   would run past 110 characters. */
 .proof-note{max-width:1200px;margin:3.25rem auto 0;padding:0 2.5rem}
 .proof-note-in{background:#191919;border-radius:14px;padding:2.75rem 3rem;display:block}
-.proof-note-head{margin-bottom:1.9rem}
-.proof-note .label{margin-bottom:0.55rem;color:#ed3e35}
-.proof-note h3{font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:-0.03em;
-  line-height:1.1;color:#fef9f9;margin:0}
 .proof-note-body{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
 .proof-note-body p{font-size:0.95rem;line-height:1.75;
   color:rgba(254,249,249,0.74);margin:0}
 .proof-note strong{color:#fef9f9;font-weight:700}
-@media (min-width:901px){
-  /* one line on desktop; the tile is ~1120px wide here so the heading
-     has room to spare, nowrap just guarantees it never breaks */
-  .proof-note h3{white-space:nowrap}
-}
-@media (prefers-color-scheme: dark){
-  .proof-note-in{background:#111}
-  .proof-note h3{color:#f0ede8}
-  .proof-note-body p{color:#9a9a9a}
-  .proof-note strong{color:#f0ede8}
-}
 @media(max-width:900px){
   .proof-note-in{padding:2.25rem 1.75rem}
-  .proof-note-head{margin-bottom:1.35rem}
-  .proof-note-body{grid-template-columns:1fr;gap:1.1rem}
+    .proof-note-body{grid-template-columns:1fr;gap:1.1rem}
 }
 @media(max-width:768px){
   .proof-note{padding:0 1.25rem;margin-top:2.5rem}
-  .proof-note h3{font-size:1.45rem}
-  .proof-note-body p{font-size:0.9rem;line-height:1.7}
+    .proof-note-body p{font-size:0.9rem;line-height:1.7}
 }
 /* ── RED EYEBROW LABEL SIZE LOCK ────────────────────────────────────
    The red eyebrow label (.label) must stay at 0.72rem so it reads as a
@@ -1574,12 +1557,8 @@ p.label { color: var(--r) !important; }
 <p style="text-align:center;max-width:1080px;margin:3rem auto 0;font-size:0.85rem;color:var(--gd)">Here are 7 pieces of "reel" client work we prepared earlier</p>
 <div class="proof-note reveal">
 <div class="proof-note-in">
-<div class="proof-note-head">
-<p class="label">Track record</p>
-<h3>Two years of daily content, and counting.</h3>
-</div>
 <div class="proof-note-body">
-<p>We've been producing daily content for over two years. In that time rad has reliably developed unique strategies on a per client basis, built to get the <strong>views and interactions</strong> our clients are after, with the audience they're actually trying to reach.</p>
+<p><strong>We've been producing daily content for over two years.</strong> In that time rad has reliably developed unique strategies on a per client basis, built to get the views and interactions our clients are after, with the audience they're actually trying to reach.</p>
 <p>Views are great, but views with your target audience are what you really want. We also run our own custom-written testing code that looks at the variables that actually matter, and uses them to inform the content we make next. The longer we work with you, the better the content gets.</p>
 </div>
 </div>
