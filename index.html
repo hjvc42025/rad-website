@@ -1382,12 +1382,11 @@ p.label { color: var(--r) !important; }
    fill in dark mode. Same convention as .pkg-card.pkg-dark: fixed dark
    hex plus an explicit dark-scheme override below.
 
-   Body-only tile: no label, no heading, paragraphs stacked. Measure is
-   capped at 68ch because the card runs ~1024px at desktop and
-   unconstrained prose there hits ~130 characters a line. */
-.proof-note{max-width:1200px;margin:3.25rem auto 0;padding:0 2.5rem}
+   Body-only tile: no label, no heading, paragraphs stacked, and the
+   tile matches the page's standard 1080px content width rather than
+   the 1200px the proof grid above it uses. */
+.proof-note{max-width:1080px;margin:3.25rem auto 0;padding:0 2.5rem}
 .proof-note-in{background:#191919;border-radius:14px;padding:2.75rem 3rem;display:block}
-.proof-note-body{max-width:68ch}
 .proof-note-body p{font-size:0.95rem;line-height:1.75;
   color:rgba(254,249,249,0.74);margin:0}
 .proof-note-body p + p{margin-top:1rem}
@@ -1558,8 +1557,8 @@ p.label { color: var(--r) !important; }
 <div class="proof-note reveal">
 <div class="proof-note-in">
 <div class="proof-note-body">
-<p><strong>We've been producing daily content for over two years.</strong> In that time rad has reliably developed unique strategies on a per client basis, built to get the views and interactions our clients are after, with the audience they're actually trying to reach.</p>
-<p>Views are great, but views with your target audience are what you really want. We also run our own custom-written testing code that looks at the variables that actually matter, and uses them to inform the content we make next. The longer we work with you, the better the content gets.</p>
+<p><strong>rad's been producing daily content for over two years.</strong> In that time we've reliably developed unique strategies on a per client basis, built to get the views and interactions our clients are after, with the audience they're actually trying to reach. Views are great, but views with your target audience are what you really want.</p>
+<p>We also run our own custom-written testing code that looks at the variables that actually matter, and uses them to inform the content we make next. The longer we work with you, the better the content gets.</p>
 </div>
 </div>
 </div></div>
