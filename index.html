@@ -1382,22 +1382,22 @@ p.label { color: var(--r) !important; }
    fill in dark mode. Same convention as .pkg-card.pkg-dark: fixed dark
    hex plus an explicit dark-scheme override below.
 
-   Body-only tile: no label, no heading. Splits into two columns on
-   desktop purely for line length; at full tile width a single column
-   would run past 110 characters. */
+   Body-only tile: no label, no heading, paragraphs stacked. Measure is
+   capped at 68ch because the card runs ~1024px at desktop and
+   unconstrained prose there hits ~130 characters a line. */
 .proof-note{max-width:1200px;margin:3.25rem auto 0;padding:0 2.5rem}
 .proof-note-in{background:#191919;border-radius:14px;padding:2.75rem 3rem;display:block}
-.proof-note-body{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.proof-note-body{max-width:68ch}
 .proof-note-body p{font-size:0.95rem;line-height:1.75;
   color:rgba(254,249,249,0.74);margin:0}
+.proof-note-body p + p{margin-top:1rem}
 .proof-note strong{color:#fef9f9;font-weight:700}
 @media(max-width:900px){
   .proof-note-in{padding:2.25rem 1.75rem}
-    .proof-note-body{grid-template-columns:1fr;gap:1.1rem}
 }
 @media(max-width:768px){
   .proof-note{padding:0 1.25rem;margin-top:2.5rem}
-    .proof-note-body p{font-size:0.9rem;line-height:1.7}
+  .proof-note-body p{font-size:0.9rem;line-height:1.7}
 }
 /* ── RED EYEBROW LABEL SIZE LOCK ────────────────────────────────────
    The red eyebrow label (.label) must stay at 0.72rem so it reads as a
